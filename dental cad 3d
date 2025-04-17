@@ -1,0 +1,19 @@
+#include <QVector3D>
+#include <vector>
+#include <cmath>
+
+// Generar una esfera en forma de malla
+std::vector<QVector3D> generateSphere(float radius, int segments) {
+    std::vector<QVector3D> vertices;
+    for (int y = 0; y <= segments; ++y) {
+        for (int x = 0; x <= segments; ++x) {
+            float xSegment = static_cast<float>(x) / segments;
+            float ySegment = static_cast<float>(y) / segments;
+            float xPos = radius * std::cos(xSegment * 2.0f * M_PI) * std::sin(ySegment * M_PI);
+            float yPos = radius * std::cos(ySegment * M_PI);
+            float zPos = radius * std::sin(xSegment * 2.0f * M_PI) * std::sin(ySegment * M_PI);
+            vertices.push_back(QVector3D(xPos, yPos, zPos));
+        }
+    }
+    return vertices;
+}
